@@ -8,19 +8,21 @@ import { Subject } from 'rxjs';
 @Injectable()
 
 export class RecipeService{
-    recipes: Recipe[] = [
-        new Recipe('Chicken Biryani', 'The Best chicke dish!','https://www.indianhealthyrecipes.com/wp-content/uploads/2019/02/chicken-biryani-recipe-500x500.jpg',
-            [
-                new Ingredient('Rice', 500),
-                new Ingredient('Chicken', 500),
-                new Ingredient('Spices', 1000)
-            ]),
-        new Recipe('Rajmaa Chawal', 'One of the most loved dishes!', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQkE1t5sTWRLXPEIIVY-dbmcRAmrm-Bt0BiBmmUDcKtvdNEPo8Z&usqp=CAU',
-        [
-            new Ingredient('Rajmaa', 500),
-            new Ingredient('Rice', 350)
-        ])
-    ];
+    // recipes: Recipe[] = [
+    //     new Recipe('Chicken Biryani', 'The Best chicke dish!','https://www.indianhealthyrecipes.com/wp-content/uploads/2019/02/chicken-biryani-recipe-500x500.jpg',
+    //         [
+    //             new Ingredient('Rice', 500),
+    //             new Ingredient('Chicken', 500),
+    //             new Ingredient('Spices', 1000)
+    //         ]),
+    //     new Recipe('Rajmaa Chawal', 'One of the most loved dishes!', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQkE1t5sTWRLXPEIIVY-dbmcRAmrm-Bt0BiBmmUDcKtvdNEPo8Z&usqp=CAU',
+    //     [
+    //         new Ingredient('Rajmaa', 500),
+    //         new Ingredient('Rice', 350)
+    //     ])
+    // ];
+
+    recipes: Recipe[] = [];
 
     recipesChanged = new Subject<Recipe[]>();
 
@@ -50,6 +52,11 @@ export class RecipeService{
 
     deleteRecipe(index: number){
         this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
         this.recipesChanged.next(this.recipes.slice());
     }
 
